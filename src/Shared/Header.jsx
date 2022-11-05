@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 function Header() {
     const [openNav, setOpenNav] = useState(false);
-    const { logOutUser, setLoading } = useContext(UserContext)
+    const { logOutUser, setLoading, user } = useContext(UserContext)
 
     //log out user 
     const handleLogOutUser = () => {
@@ -37,75 +37,82 @@ function Header() {
     }, []);
 
     const navList = (
-        <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
-                    <RiHome2Fill/>
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
-                    <RiUser3Fill/>
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
-                    <RiMessage3Fill/>
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/signin" className="flex items-center text-xl font-semibold hover:text-blue-500">
-                    Sign In
-                </Link>
-            </Typography>
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-normal"
-            >
-                <Link to="/signup" className="flex items-center text-xl font-bold hover:text-blue-500">
-                    Sign Up
-                </Link>
-            </Typography>
+        <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">      
+            {!user?.uid ? <>
+                <Typography
+                    as="li"
+                    variant="small"
+                    color="blue-gray"
+                    className="p-1 font-normal"
+                >
+                    <Link to="/signin" className="flex items-center text-xl font-semibold hover:text-blue-500">
+                        <Button variant="gradient" size="sm" className="mx-auto">
+                            <span>Sign In</span>
+                        </Button>
+                    </Link>
+                </Typography>
+                <Typography
+                    as="li"
+                    variant="small"
+                    color="blue-gray"
+                    className="p-1 font-normal"
+                >
+                    <Link to="/signup" className="flex items-center text-xl font-bold hover:text-blue-500">
+                        <Button variant="gradient" size="sm" className="mx-auto">
+                            <span>Sign Up</span>
+                        </Button>
+                    </Link>
+                </Typography>
+
+            </> : <>
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-normal"
+                    >
+                        <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
+                            <RiHome2Fill />
+                        </Link>
+                    </Typography>
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-normal"
+                    >
+                        <Link to="/profile" className="flex items-center text-2xl hover:text-blue-500">
+                            <RiUser3Fill />
+                        </Link>
+                    </Typography>
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-normal"
+                    >
+                        <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
+                            <RiMessage3Fill />
+                        </Link>
+                    </Typography>
+
+            </>}
         </ul>
     );
 
     return (
         <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4">
             <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-                <Typography
-                    as="a"
-                    href="#"
-                    variant="small"
+                <Link
+                    to="/"
                     className="mr-4 cursor-pointer py-1.5 font-normal"
                 >
                     <span className="text-2xl font-semibold">Fa<span className="text">k</span>eBook</span>
-                </Typography>
+                </Link>
                 <div className="hidden lg:block">{navList}</div>
-                <Button onClick={handleLogOutUser} variant="gradient" size="sm" className="hidden lg:inline-block">
+                {user?.uid && <Button onClick={handleLogOutUser} variant="gradient" size="sm" className="hidden lg:inline-block">
                     <span>Log out</span>
-                </Button>
+                </Button>}
                 <IconButton
                     variant="text"
                     className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -146,9 +153,9 @@ function Header() {
             </div>
             <MobileNav open={openNav}>
                 {navList}
-                <Button onClick={handleLogOutUser} variant="gradient" size="sm" fullWidth className="mb-2">
+                {user?.uid && <Button onClick={handleLogOutUser} variant="gradient" size="sm" fullWidth className="mb-2">
                     <span>Log Out</span>
-                </Button>
+                </Button>}
             </MobileNav>
         </Navbar>
     );
