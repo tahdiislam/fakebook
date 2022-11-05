@@ -9,6 +9,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { useContext } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Context/AuthProvider";
 
@@ -18,7 +19,6 @@ function SignIn() {
     // form submit handler
     const handleFormSubmit = e => {
         e.preventDefault()
-        console.log("sign in");
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -27,10 +27,11 @@ function SignIn() {
         // log in user with email and password
         loginWithEmailAndPass(email, password)
         .then(res => {
-
+            toast.success("User login successfully.")
+            form.reset()
         })
         .catch(err => {
-            console.log(err);
+            toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
         })
     }
     return (
