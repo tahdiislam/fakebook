@@ -40,7 +40,7 @@ function Header() {
 
     const navList = (
         <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">      
-            {!user?.uid ? <>
+            {!user?.uid ? 
                 <Typography
                     as="li"
                     variant="small"
@@ -52,21 +52,7 @@ function Header() {
                             <span>Sign In</span>
                         </Button>
                     </Link>
-                </Typography>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-normal"
-                >
-                    <Link to="/signup" className="flex items-center text-xl font-bold hover:text-blue-500">
-                        <Button variant="gradient" size="sm" className="mx-auto">
-                            <span>Sign Up</span>
-                        </Button>
-                    </Link>
-                </Typography>
-
-            </> : <>
+                </Typography> : <>
                     <Typography
                         as="li"
                         variant="small"
@@ -93,7 +79,7 @@ function Header() {
                         color="blue-gray"
                         className="p-1 font-normal"
                     >
-                        <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
+                        <Link to="/message" className="flex items-center text-2xl hover:text-blue-500">
                             <RiMessage3Fill />
                         </Link>
                     </Typography>

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import SignIn from "../Pages/Login/SignIn";
 import Profile from "../Pages/Profile/Profile";
@@ -8,6 +9,7 @@ import RequireAuth from "./RequireAuth";
 
 export const router = createBrowserRouter([
     {path: "/", element: <Main/>, children: [
+        {path: "*", element: <ErrorPage/>},
         {path: "/", element: <RequireAuth>
             <Home />
         </RequireAuth>},
