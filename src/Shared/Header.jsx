@@ -57,7 +57,7 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/" className="flex items-center text-xl font-semibold hover:text-blue-500">
+                <Link to="/signin" className="flex items-center text-xl font-semibold hover:text-blue-500">
                     Sign In
                 </Link>
             </Typography>
@@ -67,7 +67,7 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/" className="flex items-center text-xl font-bold hover:text-blue-500">
+                <Link to="/register" className="flex items-center text-xl font-bold hover:text-blue-500">
                     Register
                 </Link>
             </Typography>
