@@ -5,16 +5,18 @@ import {
     CardFooter,
     Typography,
     Input,
-    Checkbox,
     Button,
 } from "@material-tailwind/react";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/AuthProvider";
 
 function SignIn() {
     const { loginWithEmailAndPass } = useContext(UserContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
 
     // form submit handler
     const handleFormSubmit = e => {
@@ -29,6 +31,7 @@ function SignIn() {
         .then(res => {
             toast.success("User login successfully.")
             form.reset()
+            navigate(from, {replace: true})
         })
         .catch(err => {
             toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))

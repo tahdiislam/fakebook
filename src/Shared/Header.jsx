@@ -6,7 +6,7 @@ import {
     Button,
     IconButton,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiHome2Fill, RiMessage3Fill, RiUser3Fill } from "react-icons/ri";
 import { useContext } from "react";
 import { UserContext } from "../Context/AuthProvider";
@@ -15,12 +15,14 @@ import toast from "react-hot-toast";
 function Header() {
     const [openNav, setOpenNav] = useState(false);
     const { logOutUser, setLoading, user } = useContext(UserContext)
+    const navigate = useNavigate()
 
     //log out user 
     const handleLogOutUser = () => {
         logOutUser()
         .then(() => {
             toast.success("Log out successfully.")
+            navigate("/signin")
         })
         .catch(err => {
             toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
