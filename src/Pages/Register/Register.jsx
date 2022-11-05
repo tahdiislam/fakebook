@@ -44,7 +44,7 @@ function Register() {
                     className="mb-4 grid h-28 place-items-center"
                 >
                     <Typography variant="h3" color="white">
-                        Register
+                        Sign Up
                     </Typography>
                 </CardHeader>
                 <CardBody className="flex flex-col gap-4">
@@ -63,7 +63,7 @@ function Register() {
                 <CardFooter className="pt-0">
                     <Typography variant="small" className="mt-6 flex justify-center">
                         Have an account?
-                        <Link to="/signup" className="text-blue-500 underline hover:no-underline">Sign In</Link>
+                        <Link to="/signin" className="text-blue-500 underline hover:no-underline">Sign In</Link>
                     </Typography>
                 </CardFooter>
             </Card>

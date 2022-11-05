@@ -8,10 +8,27 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { RiHome2Fill, RiMessage3Fill, RiUser3Fill } from "react-icons/ri";
+import { useContext } from "react";
+import { UserContext } from "../Context/AuthProvider";
+import toast from "react-hot-toast";
 
 function Header() {
     const [openNav, setOpenNav] = useState(false);
+    const { logOutUser, setLoading } = useContext(UserContext)
 
+    //log out user 
+    const handleLogOutUser = () => {
+        logOutUser()
+        .then(() => {
+            toast.success("Log out successfully.")
+        })
+        .catch(err => {
+            toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
+        })
+        .finally(() => {
+            setLoading(false)
+        })
+    }
     useEffect(() => {
         window.addEventListener(
             "resize",
@@ -67,8 +84,8 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/register" className="flex items-center text-xl font-bold hover:text-blue-500">
-                    Register
+                <Link to="/signup" className="flex items-center text-xl font-bold hover:text-blue-500">
+                    Sign Up
                 </Link>
             </Typography>
         </ul>
@@ -86,7 +103,7 @@ function Header() {
                     <span className="text-2xl font-semibold">Fa<span className="text">k</span>eBook</span>
                 </Typography>
                 <div className="hidden lg:block">{navList}</div>
-                <Button variant="gradient" size="sm" className="hidden lg:inline-block">
+                <Button onClick={handleLogOutUser} variant="gradient" size="sm" className="hidden lg:inline-block">
                     <span>Log out</span>
                 </Button>
                 <IconButton
@@ -129,7 +146,7 @@ function Header() {
             </div>
             <MobileNav open={openNav}>
                 {navList}
-                <Button variant="gradient" size="sm" fullWidth className="mb-2">
+                <Button onClick={handleLogOutUser} variant="gradient" size="sm" fullWidth className="mb-2">
                     <span>Log Out</span>
                 </Button>
             </MobileNav>
