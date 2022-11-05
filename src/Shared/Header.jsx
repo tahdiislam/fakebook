@@ -7,6 +7,7 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import { RiHome2Fill, RiMessage3Fill, RiUser3Fill } from "react-icons/ri";
 
 function Header() {
     const [openNav, setOpenNav] = useState(false);
@@ -26,8 +27,8 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/" className="flex items-center">
-                    Pages
+                <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
+                    <RiHome2Fill/>
                 </Link>
             </Typography>
             <Typography
@@ -36,8 +37,8 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/" className="flex items-center">
-                    Account
+                <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
+                    <RiUser3Fill/>
                 </Link>
             </Typography>
             <Typography
@@ -46,8 +47,8 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/" className="flex items-center">
-                    Blocks
+                <Link to="/" className="flex items-center text-2xl hover:text-blue-500">
+                    <RiMessage3Fill/>
                 </Link>
             </Typography>
             <Typography
@@ -56,8 +57,18 @@ function Header() {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <Link to="/" className="flex items-center">
-                    Docs
+                <Link to="/" className="flex items-center text-xl font-semibold hover:text-blue-500">
+                    Sign In
+                </Link>
+            </Typography>
+            <Typography
+                as="li"
+                variant="small"
+                color="blue-gray"
+                className="p-1 font-normal"
+            >
+                <Link to="/" className="flex items-center text-xl font-bold hover:text-blue-500">
+                    Register
                 </Link>
             </Typography>
         </ul>
