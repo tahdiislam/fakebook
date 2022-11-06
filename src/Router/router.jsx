@@ -10,9 +10,7 @@ import RequireAuth from "./RequireAuth";
 export const router = createBrowserRouter([
     {path: "/", element: <Main/>, children: [
         {path: "*", element: <ErrorPage/>},
-        {path: "/", element: <RequireAuth>
-            <Home />
-        </RequireAuth>},
+        {path: "/", element: <Home/>},
         {path: "/signin", element: <SignIn/>},
         { path: "/signup", element: <Register/>},
         { path: "/profile", element: <RequireAuth>

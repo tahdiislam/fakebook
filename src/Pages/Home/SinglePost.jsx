@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SinglePost = ({ post }) => {
-    const { imgLink, postText } = post;
+    const { imgLink, postText, email } = post;
     return (
-            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
+            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-md p-3 hover:shadow-xl">
                 <Link to="/" aria-label="Article">
                 {!imgLink ? <div className='object-cover w-full h-64 rounded bg-blue-400'></div> : <img
                         src={imgLink}
@@ -21,7 +21,7 @@ const SinglePost = ({ post }) => {
                         aria-label="Article"
                         className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                     >
-                        <p className="text-2xl font-bold leading-5">Diving to the deep</p>
+                        <p className="text-xl font-bold leading-5">{email}</p>
                     </Link>
                     <p className="mb-4 text-gray-700">
                         {postText.length <= 275 ? postText : <>{postText.slice(0, 275)}<Link to="/">Read more</Link></>}

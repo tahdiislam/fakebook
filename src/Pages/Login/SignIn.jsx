@@ -35,7 +35,7 @@ function SignIn() {
             }
             toast.success("User login successfully.")
             form.reset()
-            navigate(from, {replace: true})
+            navigate(from, { replace: true })
         })
         .catch(err => {
             toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
