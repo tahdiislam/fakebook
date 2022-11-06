@@ -6,12 +6,13 @@ import {
     Dialog,
     DialogHeader,
     DialogBody,
-    DialogFooter,
     Textarea,
     Input, } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import { RiEditFill } from 'react-icons/ri';
 import Posts from './Posts';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Profile = () => {
     const [open, setOpen] = useState(false);
@@ -26,6 +27,23 @@ const Profile = () => {
         const imgLink = form.imgLink.value;
         const postText = form.postText.value;
         console.log(imgLink, postText);
+        // add post in server 
+        axios.post("http://localhost:5000/posts", {
+            email: user?.email,
+            imgLink,
+            postText
+        })
+        .then(res => {
+            // console.log(res.data);
+            if (res.data.acknowledged){
+                toast.success("Post created successfully.")
+                setOpen(!open)
+            }
+        })
+        .catch(err => {
+            toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
+        })
+        
     }
     return (
         <div>
@@ -69,7 +87,7 @@ const Profile = () => {
                                 <form onSubmit={handleCreatePost} className='flex flex-col w-full gap-4'>
                                     <p className='text-gray-700 text-lg font-semibold'>{user?.email}</p>
                                     <Input label="Image link" type="text" name="imgLink" />
-                                    <Textarea name='postText' color="blue" label="Write here" />
+                                    <Textarea name='postText' color="blue" label="Write here" required/>
                                     <Button
                                         variant="text"
                                         color="red"
@@ -83,9 +101,6 @@ const Profile = () => {
                                     </Button>
                                 </form>
                             </DialogBody>
-                            <DialogFooter>
-                                
-                            </DialogFooter>
                         </Dialog>
                     </Fragment>
                 </div>
