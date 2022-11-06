@@ -1,13 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment, useState } from 'react';
 import { UserContext } from '../../Context/AuthProvider';
-import { Avatar, Button, Tooltip } from "@material-tailwind/react";
+import {
+    Button, 
+    Tooltip, 
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+    Textarea,
+    Input, } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
 import { RiEditFill } from 'react-icons/ri';
 import Posts from './Posts';
 
 const Profile = () => {
+    const [open, setOpen] = useState(false);
     const { user } = useContext(UserContext)
     
+    const handleOpen = () => setOpen(!open);
+
+    // create post handler 
+    const handleCreatePost = e => {
+        e.preventDefault()
+        const form = e.target;
+        const imgLink = form.imgLink.value;
+        const postText = form.postText.value;
+        console.log(imgLink, postText);
+    }
     return (
         <div>
             <div className="bg-blue-400 rounded-lg relative h-64">
@@ -32,12 +51,43 @@ const Profile = () => {
             <div className='bg-gray-700 text-gray-200 min-h-min'>
                 <div className='py-16 pl-20'>
                     <Tooltip content="Create a Post">
-                        <Link to="/create-post">
-                            <Button variant="gradient" color="amber">
+                            <Button onClick={handleOpen} variant="gradient" color="amber">
                                 <RiEditFill className='text-xl' />
                             </Button>
-                        </Link>
                     </Tooltip>
+                    <Fragment>
+                        <Dialog
+                            open={open}
+                            handler={handleOpen}
+                            animate={{
+                                mount: { scale: 1, y: 0 },
+                                unmount: { scale: 0.9, y: -100 },
+                            }}
+                        >
+                            <DialogHeader>Create a new post</DialogHeader>
+                            <DialogBody divider>
+                                <form onSubmit={handleCreatePost} className='flex flex-col w-full gap-4'>
+                                    <p className='text-gray-700 text-lg font-semibold'>{user?.email}</p>
+                                    <Input label="Image link" type="text" name="imgLink" />
+                                    <Textarea name='postText' color="blue" label="Write here" />
+                                    <Button
+                                        variant="text"
+                                        color="red"
+                                        onClick={handleOpen}
+                                        className="mr-1"
+                                    >
+                                        <span>Cancel</span>
+                                    </Button>
+                                    <Button type='submit' variant="gradient" color="green">
+                                        <span>Post</span>
+                                    </Button>
+                                </form>
+                            </DialogBody>
+                            <DialogFooter>
+                                
+                            </DialogFooter>
+                        </Dialog>
+                    </Fragment>
                 </div>
                 <div className='grid grid-cols-6 gap-4 px-6'>
                     <div className='col-span-2'>
