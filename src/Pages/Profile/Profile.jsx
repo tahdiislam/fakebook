@@ -41,7 +41,8 @@ const Profile = () => {
             }
         })
         .catch(err => {
-            toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
+            console.log(err);
+            // toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))
         })
         
     }
