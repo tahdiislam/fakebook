@@ -28,7 +28,11 @@ function SignIn() {
 
         // log in user with email and password
         loginWithEmailAndPass(email, password)
-        .then(res => {
+        .then(result => {
+            const user = result.user;
+            const currentUser = {
+                email: user.email,
+            }
             toast.success("User login successfully.")
             form.reset()
             navigate(from, {replace: true})
