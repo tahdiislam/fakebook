@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import { useContext } from "react";
 import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { json, Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/AuthProvider";
 
 function SignIn() {
@@ -33,9 +33,22 @@ function SignIn() {
             const currentUser = {
                 email: user.email,
             }
-            toast.success("User login successfully.")
-            form.reset()
-            navigate(from, { replace: true })
+            // give user a access token
+            fetch("http://localhost:5000/jwt", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(currentUser)
+            })
+            .then(res => res.json())
+            .then(data => {
+                localStorage.setItem("fake-token", data.token )
+                toast.success("User login successfully.")
+                form.reset()
+                navigate(from, { replace: true })
+            })
+            .catch(err => console.log(err))
         })
         .catch(err => {
             toast.error(err.message.split("Firebase:").join("").split("(").join("").split("-").join(" ").split("auth/").join("").split(")").join(""))

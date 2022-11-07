@@ -9,7 +9,8 @@ const Posts = () => {
     useEffect(() => {
         axios.get(`http://localhost:5000/posts?email=${user?.email}`)
             .then(res => {
-                setPosts(res.data);
+                // setPosts(res.data);
+                console.log(res);
             })
             .catch(err => {
                 console.log(err);

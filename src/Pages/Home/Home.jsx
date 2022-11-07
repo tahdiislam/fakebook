@@ -1,14 +1,26 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../Context/AuthProvider";
 import SinglePost from "./SinglePost";
 
 const Home = () => {
   const [posts, setPosts] = useState([])
+  const { user, logOutUser } = useContext(UserContext)
 
   // load all post
   useEffect(() => {
-    axios.get("http://localhost:5000/posts")
-      .then(res => setPosts(res.data))
+    fetch(`http://localhost:5000/posts?email=${user?.email}`, {
+      headers: {
+        authorization: `Emon ${localStorage.getItem("fake-token")} `
+      }
+    })
+      .then(res =>{
+        if(res.status === 401 || res.status === 403){
+          return logOutUser()
+        }
+        return res.json()
+        })
+      .then(data => setPosts(data))
       .catch(err => console.log(err))
   }, [])
   return (
